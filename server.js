@@ -3,9 +3,11 @@ var app = express()
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+//Static paths to View and Script
 app.use(express.static(__dirname + '/View'));
 app.use('/style',express.static(__dirname + '/Script'));
 
+//Static paths to dependencies
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
