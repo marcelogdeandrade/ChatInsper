@@ -1,4 +1,5 @@
 var Message;
+var socket = io();
 // Message function
 Message = function (arg) {
     this.text = arg.text, this.message_side = arg.message_side;
@@ -43,20 +44,35 @@ sendMessage = function (text, message_side) {
 
 // Send message when click send button
 $('.send_message').click(function (e) {
-    socket.emit('chat message', getMessageText());
+    var data={
+        text : getMessageText(),
+        id : socket.io.engine.id.toString()
+        };
+    socket.emit('chat message', data);
     $('.message_input').val(''); //Delete input text
     return false;
 });
 
-var socket = io();
 // Send message when submit form
 $('form').submit(function(){
-    socket.emit('chat message', $('#m').val());
+    var data={
+        text : getMessageText(),
+        id : socket.io.engine.id.toString()
+        };
+    socket.emit('chat message', data);
     $('.message_input').val(''); //Delete input text
     return false;
 });
 
-// Socket on emit function
-socket.on('chat message', function(msg){
-    sendMessage(msg,'left');
+// CLIENT -- Socket on emit function
+socket.on('chat message', function(data){
+    var text = data.text
+    var id = data.id
+    if (id == socket.io.engine.id.toString()){
+        sendMessage(text,'left');
+    }
+    else {
+        sendMessage(text,'right');
+    }
+
 });

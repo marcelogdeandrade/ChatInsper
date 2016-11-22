@@ -12,6 +12,11 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); /
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
+//List of connected sockets
+io.sockets.sockets.map(function(e) {
+    return e.username;
+})
+
 app.get('/', function(req, res){
   res.sendFile('/index.html');
 });
@@ -19,6 +24,8 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
+    console.log(socket.request.connection.remoteAddress);
+    console.log(socket.id);
   });
 });
 
