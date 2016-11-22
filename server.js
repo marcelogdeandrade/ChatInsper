@@ -5,17 +5,14 @@ var io = require('socket.io')(http);
 
 //Static paths to View and Script
 app.use(express.static(__dirname + '/View'));
-app.use('/style',express.static(__dirname + '/Script'));
+app.use('/style',express.static(__dirname + '/css'));
+app.use('/model',express.static(__dirname + '/Model'));
+
 
 //Static paths to dependencies
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
-
-//List of connected sockets
-io.sockets.sockets.map(function(e) {
-    return e.username;
-})
 
 app.get('/', function(req, res){
   res.sendFile('/index.html');
@@ -24,8 +21,6 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
-    console.log(socket.request.connection.remoteAddress);
-    console.log(socket.id);
   });
 });
 

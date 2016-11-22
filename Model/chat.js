@@ -18,7 +18,6 @@ Message = function (arg) {
 };
 
 var getMessageText, message_side, sendMessage;
-message_side = 'right';
 
 // GetMessageText function
 getMessageText = function () {
@@ -69,10 +68,10 @@ socket.on('chat message', function(data){
     var text = data.text
     var id = data.id
     if (id == socket.io.engine.id.toString()){
-        sendMessage(text,'left');
+        sendMessage(text,'right');
     }
     else {
-        sendMessage(text,'right');
+        sendMessage(text,'left');
     }
 
 });
