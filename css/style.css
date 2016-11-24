@@ -109,6 +109,11 @@ body {
   height: 60px;
   border-radius: 50%;
   display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 60px;
+  font-family: "Calibri", "Roboto", sans-serif;
+  font-size: 150%;
 }
 .messages .message .text_wrapper {
   display: inline-block;
@@ -193,3 +198,25 @@ body {
 .message_template {
   display: none;
 }
+
+/* Angulas Classes */
+.dialogdemoBasicUsage #popupContainer {
+  position: relative; }
+
+.dialogdemoBasicUsage .footer {
+  width: 100%;
+  text-align: center;
+  margin-left: 20px; }
+
+.dialogdemoBasicUsage .footer, .dialogdemoBasicUsage .footer > code {
+  font-size: 0.8em;
+  margin-top: 50px; }
+
+.dialogdemoBasicUsage button {
+  width: 200px; }
+
+.dialogdemoBasicUsage div#status {
+  color: #c60008; }
+
+.dialogdemoBasicUsage .dialog-demo-prerendered md-checkbox {
+  margin-bottom: 0; }
