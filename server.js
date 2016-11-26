@@ -23,7 +23,6 @@ app.get('/', function(req, res){
 //When someone connects to server
 io.on('connection', function(socket){
     id = socket.id;  //ID of client connected
-
     // Pass list of connected people to new person
     io.to(id).emit('update list connected', people_connected)
 
@@ -55,6 +54,6 @@ io.on('connection', function(socket){
     });
 });
 
-http.listen(3000,'0.0.0.0', function(){
+http.listen(3000, function(){
   console.log('listening on *:3000');
 });
