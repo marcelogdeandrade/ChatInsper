@@ -1,6 +1,6 @@
-var nome;
-var socket = io();
-var connected_people;
+var nome; //Client Name
+var socket = io(); //Socket IO Object
+var connected_people; // List of connected_people
 
 //Angular
 angular.module('myApp', ['ngMaterial'])
@@ -50,9 +50,8 @@ angular.module('myApp', ['ngMaterial'])
   }
 });
 
-//SOCKET IO
 
-var Message;
+var Message; // Message Object
 
 // Message function
 Message = function (arg) {
@@ -72,7 +71,7 @@ Message = function (arg) {
     return this;
 };
 
-var getMessageText, message_side, sendMessage;
+var getMessageText, message_side, sendMessage; //Auxiliar message Vars
 
 // GetMessageText function
 getMessageText = function () {
@@ -138,18 +137,22 @@ socket.on('chat message', function(data){
     }
 });
 
+//When a new person connects, add to list
 socket.on('add connected', function(result){
     addItemToConnected(result.text, result.id);
 });
 
+//When client connects to server
 socket.on('connect', function(){
     angular.element(document.getElementById('body')).scope().showPrompt();
 });
 
+//When a person leaves chat, delete from list
 socket.on('delete person list', function(id){
     $('#'+ id).remove();
 });
 
+//When connects to server, updates list
 socket.on('update list connected', function(people_connected){
     for(var i in people_connected){
         addItemToConnected(people_connected[i].text, people_connected[i].id);
