@@ -1,4 +1,6 @@
 var nome;
+var socket = io();
+var connected_people;
 
 //Angular
 angular.module('myApp', ['ngMaterial'])
@@ -20,8 +22,14 @@ angular.module('myApp', ['ngMaterial'])
     //  .cancel('IOk');
 
    $mdDialog.show(confirm).then(function(result) {
-     nome = result.slice(0,2).toUpperCase();
-     $scope.status = 'You decided to name your dog ' + result + '.';
+     nome = result;
+     // Add name to list_connected
+     var data = {
+         text : result,
+         id : socket.io.engine.id.toString()
+     };
+     socket.emit('add connected', data);
+
    }, function() {
      $scope.status = 'You didn\'t name your dog.';
    });
@@ -45,7 +53,7 @@ angular.module('myApp', ['ngMaterial'])
 //SOCKET IO
 
 var Message;
-var socket = io();
+
 // Message function
 Message = function (arg) {
     this.text = arg.text, this.message_side = arg.message_side, this.name = arg.name;
@@ -55,7 +63,7 @@ Message = function (arg) {
             $message = $($('.message_template').clone().html());
             $message.addClass(_this.message_side).find('.text').html(_this.text);
             $('.messages').append($message);
-            $message.find('.avatar').html(this.name);
+            $message.find('.avatar').html(this.name.slice(0,2).toUpperCase());
             return setTimeout(function () {
                 return $message.addClass('appeared');
             }, 0);
@@ -113,6 +121,11 @@ $('form').submit(function(){
     return false;
 });
 
+//Function to add item to UL
+function addItemToConnected(text,id) {
+    $("#list_connected").append('<a id="'+ id + '" href="#" class="list-group-item">' + text + '</a>');
+}
+
 // CLIENT -- Socket on emit function
 socket.on('chat message', function(data){
     var text = data.text
@@ -125,6 +138,20 @@ socket.on('chat message', function(data){
     }
 });
 
+socket.on('add connected', function(result){
+    addItemToConnected(result.text, result.id);
+});
+
 socket.on('connect', function(){
     angular.element(document.getElementById('body')).scope().showPrompt();
+});
+
+socket.on('delete person list', function(id){
+    $('#'+ id).remove();
+});
+
+socket.on('update list connected', function(people_connected){
+    for(var i in people_connected){
+        addItemToConnected(people_connected[i].text, people_connected[i].id);
+    }
 });

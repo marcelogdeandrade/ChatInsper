@@ -22,6 +22,21 @@ body {
   overflow: hidden;
 }
 
+.list_connected {
+    position: absolute;
+    width: calc(100% - 20px);
+    max-width: 24.9%;
+    height: 95%;
+    border-radius: 10px;
+    background-color: #fff;
+    top: 50%;
+    /*right: 50%;*/
+     transform: translateY(-50%);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    background-color: #f8f8f8;
+    overflow: hidden;
+}
+
 .top_menu {
   background-color: #fff;
   width: 100%;

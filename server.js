@@ -14,20 +14,35 @@ app.use('/model',express.static(__dirname + '/Model'));
 
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
-app.use('/angular', express.static(__dirname + '/node_modules/angular/')); // redirect to JS Angular
-app.use('/angular', express.static(__dirname + '/node_modules/angular-animate/')); // redirect to JS Angular
-app.use('/angular', express.static(__dirname + '/node_modules/angular-aria/')); // redirect to JS Angular
-app.use('/angular', express.static(__dirname + '/node_modules/angular-material/')); // redirect to JS Angular
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+//End Dependencies
+
+var people_connected = [];
 
 app.get('/', function(req, res){
-  res.sendFile('/index.html');
+    res.sendFile('/index.html');
 });
 
 io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-  });
+    id = socket.id;
+    io.to(id).emit('update list connected', people_connected)
+    socket.on('chat message', function(msg){
+        io.emit('chat message', msg);
+    });
+    socket.on('add connected', function(msg){
+        io.emit('add connected', msg);
+        var data = {
+            id : socket.id,
+            text : msg.text
+        };
+        people_connected.push(data);
+    });
+    socket.on('disconnect', function(){
+        io.emit('delete person list', socket.id);
+        people_connected = people_connected.filter(function( obj ) {
+            return obj.id !== socket.id;
+        });
+    });
 });
 
 http.listen(3000,'0.0.0.0', function(){
