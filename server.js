@@ -15,6 +15,7 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redi
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
 var people_connected = []; //List of people connected to server
+var messages = {};
 
 app.get('/', function(req, res){
     res.sendFile('/index.html');

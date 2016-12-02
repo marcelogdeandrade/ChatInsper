@@ -19,7 +19,7 @@ body {
   transform: translateX(-50%) translateY(-50%);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   background-color: #f8f8f8;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 .list_connected {
@@ -76,8 +76,9 @@ body {
   list-style: none;
   padding: 20px 10px 0 10px;
   margin: 0;
-  height: 85%;
+  height: 80%;
   overflow: scroll;
+  overflow-x: hidden;
 }
 .messages .message {
   clear: both;
@@ -155,9 +156,6 @@ body {
 .messages .message .text_wrapper::before {
   border-width: 15px;
   margin-top: -2px;
-}
-.messages .message .text_wrapper .text {
-  font-size: 18px;
   font-weight: 300;
 }
 
@@ -236,3 +234,9 @@ body {
 
 .dialogdemoBasicUsage .dialog-demo-prerendered md-checkbox {
   margin-bottom: 0; }
+
+.tabs-wrapper {
+  position: relative;
+}
+
+/*TABS*/

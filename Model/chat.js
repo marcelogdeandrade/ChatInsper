@@ -52,6 +52,7 @@ angular.module('myApp', ['ngMaterial'])
 
 
 var Message; // Message Object
+var currentChat = "all"; // Current Chat
 
 // Message function
 Message = function (arg) {
