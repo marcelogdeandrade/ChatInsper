@@ -12,13 +12,17 @@ A motivação desse projeto foi a procura de aprendizado a respeito de comunica�
 ## Instalação
 
 Para instalar, baixe ou clone o repositório e rode o comando
-'''
+
+```
 $ node server.js
-'''
+
+```
 ou
-'''
+
+```
 $ npm start
-'''
+
+```
 
 ## API Reference
 
