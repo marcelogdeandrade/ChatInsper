@@ -5,8 +5,7 @@ var io = require('socket.io')(http);
 
 //Static paths to View and Script
 app.use(express.static(__dirname + '/View'));
-app.use('/style',express.static(__dirname + '/css'));
-app.use('/model',express.static(__dirname + '/Model'));
+app.use('/style',express.static(__dirname + '/View'));
 
 
 //Static paths to dependencies

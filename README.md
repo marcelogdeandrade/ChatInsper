@@ -15,18 +15,16 @@ Para instalar, baixe ou clone o repositório e rode o comando
 
 ```
 $ node server.js
-
 ```
 ou
 
 ```
 $ npm start
-
 ```
 
-## API Reference
+## Estrutura MVC
 
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
+Esse projeto busca seguir a estrutura Model, View, Controller como base de implementação. Por não se comunicar com banco de dados, não há estrutura Model no projeto. Cada uma das outras duas estruturas estão identificadas em suas respectivas pastas, sendo View todo sistema relacionado ao front-end e interação com o usuário, e Controller todo sistema que controla o servidor e requisições de socket. (Obs: Algumas funções do arquivo chat.js se encaixam como Controller, mas por conta de sua interação com o front-end e baixa compatibilidade se separadas, optou-se por mantê-las no mesmo arquivo).
 
 ## License
 
